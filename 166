@@ -1,0 +1,86 @@
+Задание 1: Авторизация пользователей
+1. Название: Система регистрации и входа пользователей.
+2. Шаги действий:
+1. Создайте таблицу `Users`:
+```sql
+CREATE TABLE Users (
+    Id INT PRIMARY KEY IDENTITY,
+    Username NVARCHAR(50) UNIQUE,
+    PasswordHash NVARCHAR(100),
+    Email NVARCHAR(100)
+);
+```
+2. Создайте Windows Forms приложение с формами:
+   - `RegisterForm` (поля: логин, пароль, email)
+   - `LoginForm` (поля: логин, пароль)
+3. Реализуйте хеширование паролей с помощью `SHA256`.
+4. Проверяйте уникальность логина при регистрации.
+5. При успешном входе показывайте главную форму с приветствием.
+3. Что должно получиться:
+Полноценная система аутентификации с регистрацией и входом.
+Задание 2: Отчет с группировкой данных
+1. Название: Генерация отчета по предметам и количеству студентов.
+2. Шаги действий:
+1. Используйте существующие таблицы `Students` и `Subjects`.
+2. Добавьте больше студентов и предметов для тестирования.
+3. Напишите SQL-запрос с `GROUP BY`:
+```sql
+SELECT 
+    s.SubjectName,
+    COUNT(st.Id) as StudentCount
+FROM Subjects s
+LEFT JOIN Students st ON s.Id = st.SubjectId
+GROUP BY s.SubjectName
+ORDER BY StudentCount DESC;
+```
+4. Создайте консольное приложение, которое выводит этот отчет.
+5. Добавьте возможность сохранения отчета в файл `.txt`.
+3. Что должно получиться:
+Программа, которая показывает статистику: сколько студентов изучает каждый предмет.
+Задание 3: Резервное копирование базы данных
+1. Название: Утилита для создания бэкапа БД.
+2. Шаги действий:
+1. Создайте консольное приложение.
+2. Используйте SQL-команду `BACKUP DATABASE`:
+```sql
+BACKUP DATABASE MyFirstDB 
+TO DISK = 'C:\Backup\MyFirstDB.bak';
+```
+3. Спросите у пользователя путь для сохранения бэкапа.
+4. Обработайте возможные ошибки (нет прав на запись, несуществующий путь).
+5. Добавьте логирование успешных и неудачных попыток бэкапа.
+3. Что должно получиться:
+Программа, которая по запросу создает резервную копию вашей базы данных.
+Задание 4: Триггер для аудита изменений
+1. Название: Журнал изменений таблицы Students.
+2. Шаги действий:
+1. Создайте таблицу для аудита:
+```sql
+CREATE TABLE StudentsAudit (
+    AuditId INT PRIMARY KEY IDENTITY,
+    StudentId INT,
+    OldName NVARCHAR(50),
+    NewName NVARCHAR(50),
+    ChangeDate DATETIME,
+    Operation NVARCHAR(10)
+);
+```
+2. Создайте триггер на таблицу `Students`:
+```sql
+CREATE TRIGGER trg_Students_Audit
+ON Students
+AFTER UPDATE, DELETE
+AS
+BEGIN
+    INSERT INTO StudentsAudit (StudentId, OldName, NewName, ChangeDate, Operation)
+    SELECT d.Id, d.Name, i.Name, GETDATE(), 
+           CASE WHEN d.Name IS NOT NULL AND i.Name IS NOT NULL THEN 'UPDATE'
+                WHEN d.Name IS NOT NULL AND i.Name IS NULL THEN 'DELETE'
+           END
+    FROM deleted d
+    LEFT JOIN inserted i ON d.Id = i.Id;
+END;
+```
+3. Протестируйте триггер, изменив и удалив записи.
+3. Что должно получиться:
+Автоматическое ведение журнала всех изменений в таблице студентов.
