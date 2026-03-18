@@ -1,0 +1,48 @@
+Dictionary<string, List<string>> teacherSubjects = new Dictionary<string, List<string>>()
+{
+    { "Преподаватель 1", new List<string> { "Математика", "Алгебра" } },
+    { "Преподаватель 2", new List<string> { "Физика", "Астрономия" } },
+    { "Преподаватель 3", new List<string> { "Информатика", "Программирование" } },
+    { "Преподаватель 4", new List<string> { "История", "Обществознание" } },
+    { "Преподаватель 5", new List<string> { "Биология", "Химия" } },
+    { "Преподаватель 6", new List<string> { "Английский", "Немецкий" } }
+};
+cbox2.Items.AddRange(new string[] { "Предмет 1", "Предмет 2", ... });
+
+dgv1.EditingControlShowing += dgv1_EditingControlShowing;
+
+private void dgv1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+{
+    if (dgv1.CurrentCell.ColumnIndex == dgv1.Columns["cbox1Column"].Index)
+    {
+        ComboBox combo = e.Control as ComboBox;
+        if (combo != null)
+        {
+            combo.SelectedIndexChanged -= Combo_SelectedIndexChanged;
+            combo.SelectedIndexChanged += Combo_SelectedIndexChanged;
+        }
+    }
+}
+
+
+private void Combo_SelectedIndexChanged(object sender, EventArgs e)
+{
+    ComboBox combo = sender as ComboBox;
+
+    if (combo != null && dgv1.CurrentRow != null)
+    {
+        string selectedTeacher = combo.Text;
+
+        DataGridViewComboBoxCell subjectCell =
+            dgv1.CurrentRow.Cells["cbox2Column"] as DataGridViewComboBoxCell;
+
+        subjectCell.Items.Clear();
+
+        if (teacherSubjects.ContainsKey(selectedTeacher))
+        {
+            subjectCell.Items.AddRange(teacherSubjects[selectedTeacher].ToArray());
+        }
+    }
+}
+
+
