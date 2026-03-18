@@ -1,0 +1,187 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+namespace prak3
+{
+    public partial class Form1 : Form
+    {
+        DataGridView dgv1 = new DataGridView();
+        DataGridView dgv2 = new DataGridView();
+
+        DataGridViewComboBoxColumn cbox1 = new DataGridViewComboBoxColumn();
+        DataGridViewComboBoxColumn cbox2 = new DataGridViewComboBoxColumn();
+        DataGridViewComboBoxColumn cbox3 = new DataGridViewComboBoxColumn();
+
+        DataGridViewCheckBoxColumn check1 = new DataGridViewCheckBoxColumn();
+        DataGridViewCheckBoxColumn check2 = new DataGridViewCheckBoxColumn();
+        DataGridViewCheckBoxColumn check3 = new DataGridViewCheckBoxColumn();
+        DataGridViewCheckBoxColumn check4 = new DataGridViewCheckBoxColumn();
+        DataGridViewCheckBoxColumn check5 = new DataGridViewCheckBoxColumn();
+        DataGridViewCheckBoxColumn check6 = new DataGridViewCheckBoxColumn();
+
+        DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+
+        public Form1()
+        {
+            InitializeComponent();
+            dgv1set();
+            dgv2set();
+        }
+
+        private void dgv2set()
+        {
+            dgv2.Location = new Point(0, 210);
+            dgv2.Size = new Size(800, 200);
+
+            dgv2.Columns.Add("dayColumn", "День");
+            dgv2.Columns.Add("lessonColumn", "Пара №");
+            dgv2.Columns.Add("teacher1Column", "Учитель");
+            dgv2.Columns.Add("teacher2Column", "Учитель");
+            dgv2.Columns.Add("teacher3Column", "Учитель");
+            dgv2.Columns.Add("teacher4Column", "Учитель");
+            dgv2.Columns.Add("teacher5Column", "Учитель");
+
+            dgv2.Rows.Add("ПН", "Пара 1");
+            dgv2.Rows.Add("ПН", "Пара 2");
+            dgv2.Rows.Add("ПН", "Пара 3");
+            dgv2.Rows.Add("ПН", "Пара 4");
+            dgv2.Rows.Add("ПН", "Пара 5");
+            dgv2.Rows.Add("ПН", "Пара 6");
+
+            dgv2.Rows.Add("ВТ", "Пара 1");
+            dgv2.Rows.Add("ВТ", "Пара 2");
+            dgv2.Rows.Add("ВТ", "Пара 3");
+            dgv2.Rows.Add("ВТ", "Пара 4");
+            dgv2.Rows.Add("ВТ", "Пара 5");
+            dgv2.Rows.Add("ВТ", "Пара 6");
+
+            dgv2.Rows.Add("СР", "Пара 1");
+            dgv2.Rows.Add("СР", "Пара 2");
+            dgv2.Rows.Add("СР", "Пара 3");
+            dgv2.Rows.Add("СР", "Пара 4");
+            dgv2.Rows.Add("СР", "Пара 5");
+            dgv2.Rows.Add("СР", "Пара 6");
+
+            dgv2.Rows.Add("ЧТ", "Пара 1");
+            dgv2.Rows.Add("ЧТ", "Пара 2");
+            dgv2.Rows.Add("ЧТ", "Пара 3");
+            dgv2.Rows.Add("ЧТ", "Пара 4");
+            dgv2.Rows.Add("ЧТ", "Пара 5");
+            dgv2.Rows.Add("ЧТ", "Пара 6");
+
+            dgv2.Rows.Add("ПТ", "Пара 1");
+            dgv2.Rows.Add("ПТ", "Пара 2");
+            dgv2.Rows.Add("ПТ", "Пара 3");
+            dgv2.Rows.Add("ПТ", "Пара 4");
+            dgv2.Rows.Add("ПТ", "Пара 5");
+            dgv2.Rows.Add("ПТ", "Пара 6");
+
+            dgv2.Rows.Add("СБ", "Пара 1");
+            dgv2.Rows.Add("СБ", "Пара 2");
+            dgv2.Rows.Add("СБ", "Пара 3");
+            dgv2.Rows.Add("СБ", "Пара 4");
+            dgv2.Rows.Add("СБ", "Пара 5");
+            dgv2.Rows.Add("СБ", "Пара 6");
+
+            dgv2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            this.Controls.Add(this.dgv2);
+        }
+
+        private void dgv1set()
+        {
+            dgv1.Size = new Size(800, 200);
+
+            cbox1.HeaderText = "Преподователи";
+            cbox1.Name = "cbox1Column";
+            cbox2.HeaderText = "Предметы";
+            cbox2.Name = "cbox2Column";
+            cbox3.HeaderText = "Дни недели";
+            cbox3.Name = "cbox3Column";
+
+            cbox1.Items.AddRange(new string[] { "Преподаватель 1", "Преподаватель 2", "Преподаватель 3", "Преподаватель 4", "Преподаватель 5", "Преподаватель 6" });
+            cbox2.Items.AddRange(new string[] { "Предмет 1", "Предмет 2", "Предмет 3", "Предмет 4", "Предмет 5", "Предмет 6" });
+            cbox3.Items.AddRange(new string[] { "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ" });
+
+
+            check1.HeaderText = "1 пара";
+            check2.HeaderText = "2 пара";
+            check3.HeaderText = "3 пара";
+            check4.HeaderText = "4 пара";
+            check5.HeaderText = "5 пара";
+            check6.HeaderText = "6 пара";
+
+            check1.Name = "check1Column";
+            check2.Name = "check2Column";
+            check3.Name = "check3Column";
+            check4.Name = "check4Column";
+            check5.Name = "check5Column";
+            check6.Name = "check6Column";
+
+            btn.HeaderText = "Проверка";
+            btn.Text = "кнопка";
+            btn.Name = "btnColumn";
+            btn.UseColumnTextForButtonValue = true;
+
+            dgv1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            this.dgv1.Columns.AddRange(new DataGridViewColumn[] { cbox1, cbox2, cbox3, check1, check2, check3, check4, check5, check6, btn });
+            this.Controls.Add(this.dgv1);
+
+            dgv1.CellContentClick += btn_onClick;
+        }
+
+        private void btn_onClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgv1.Columns["btnColumn"].Index)
+            {
+                string teacher = dgv1.Rows[e.RowIndex].Cells["cbox1Column"].Value?.ToString();
+                string subject = dgv1.Rows[e.RowIndex].Cells["cbox2Column"].Value?.ToString();
+                string day = dgv1.Rows[e.RowIndex].Cells["cbox3Column"].Value?.ToString();
+
+                List<int> selectedLessons = new List<int>();
+                for (int i = 0; i < 6; i++)
+                {
+                    var cellValue = dgv1.Rows[e.RowIndex].Cells[i + 3].Value; 
+                    if (cellValue != null && Convert.ToBoolean(cellValue))
+                    {
+                        selectedLessons.Add(i + 1);
+                    }
+                }
+
+                foreach (int lesson in selectedLessons)
+                {
+                    CheckAvailability(day, lesson, teacher);
+                }
+            }
+        }
+
+        private void CheckAvailability(string day, int lesson, string teacher)
+        {
+            foreach (DataGridViewRow row in dgv2.Rows)
+            {
+                if (row.Cells["dayColumn"].Value?.ToString() == day && row.Cells["lessonColumn"].Value?.ToString() == $"Пара {lesson}")
+                {
+                    var cellValue = row.Cells[$"teacher{lesson}Column"].Value;
+                    if (string.IsNullOrEmpty(cellValue?.ToString()))
+                    {
+                        row.Cells[$"teacher{lesson}Column"].Value = teacher;
+                        MessageBox.Show($"Преподаватель {teacher} назначен на {day} на {row.Cells["lessonColumn"].Value}.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"На {day} в {row.Cells["lessonColumn"].Value} уже назначен преподаватель {cellValue}.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+    }
+}
