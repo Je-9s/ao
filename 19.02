@@ -1,0 +1,119 @@
+Score DECIMAL(5,2),
+    MaxScore DECIMAL(5,2)
+);
+
+1. Создайте приложение с:
+   · Регистрацией на курсы
+   · Ведением журнала оценок
+   · Отчетом об успеваемости
+   · Рассылкой уведомлений
+
+3. Что должно получиться:
+Платформа для управления образовательными курсами.
+
+---
+
+Задание 9: Ресторанная система заказов
+
+1. Название: Система управления заказами в ресторане.
+
+2. Шаги действий:
+
+1. Создайте БД RestaurantDB:
+CREATE TABLE MenuItems (
+    ItemId INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(100),
+    Description NVARCHAR(500),
+    Category NVARCHAR(50),
+    Price DECIMAL(10,2),
+    IsAvailable BIT DEFAULT 1
+);
+
+CREATE TABLE Tables (
+    TableId INT PRIMARY KEY IDENTITY,
+    TableNumber INT,
+    Capacity INT,
+    Status NVARCHAR(20) DEFAULT 'Available'
+);
+
+CREATE TABLE Orders (
+    OrderId INT PRIMARY KEY IDENTITY,
+    TableId INT FOREIGN KEY REFERENCES Tables(TableId),
+    WaiterName NVARCHAR(100),
+    OrderTime DATETIME DEFAULT GETDATE(),
+    Status NVARCHAR(20) DEFAULT 'Active',
+    TotalAmount DECIMAL(10,2)
+);
+
+CREATE TABLE OrderDetails (
+    OrderDetailId INT PRIMARY KEY IDENTITY,
+    OrderId INT FOREIGN KEY REFERENCES Orders(OrderId),
+    ItemId INT FOREIGN KEY REFERENCES MenuItems(ItemId),
+    Quantity INT,
+    SpecialInstructions NVARCHAR(500)
+);
+
+1. Создайте приложение с:
+   · Электронным меню
+   · Управлением столиками
+   · Формированием счета
+   · Разделением счета
+   · Кухонным дисплеем (отдельная форма)
+
+3. Что должно получиться:
+Комплексная система для управления заведениями общепита.
+
+---
+
+Задание 10: Медицинская карта пациента
+
+1. Название: Электронная медицинская карта.
+
+2. Шаги действий:
+
+1. Создайте БД ClinicDB:
+CREATE TABLE Patients (
+    PatientId INT PRIMARY KEY IDENTITY,
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    DateOfBirth DATE,
+    Gender NVARCHAR(10),
+    Phone NVARCHAR(20),
+    Email NVARCHAR(100)
+);
+
+CREATE TABLE Appointments (
+    AppointmentId INT PRIMARY KEY IDENTITY,
+    PatientId INT FOREIGN KEY REFERENCES Patients(PatientId),
+    AppointmentDate DATE,
+    AppointmentTime TIME,
+    DoctorName NVARCHAR(100),
+    Reason NVARCHAR(500),
+    Status NVARCHAR(20)
+);
+
+CREATE TABLE MedicalRecords (
+    RecordId INT PRIMARY KEY IDENTITY,
+    PatientId INT FOREIGN KEY REFERENCES Patients(PatientId),
+    VisitDate DATE,
+    Diagnosis NVARCHAR(500),
+    Prescription NVARCHAR(MAX),
+    DoctorNotes NVARCHAR(MAX)
+);
+
+CREATE TABLE Medications (
+    MedicationId INT PRIMARY KEY IDENTITY,
+    Name NVARCHAR(100),
+    Dosage NVARCHAR(50),
+    Frequency NVARCHAR(50)
+);
+
+1. Создайте приложение с:
+   · Регистрацией пациентов
+   · Записью на прием
+   · Ведением истории болезни
+   · Напоминаниями о приемах
+   · Поиском пациентов
+
+3. Что должно получиться:
+Система для управления медицинскими записями в клинике.
