@@ -1,0 +1,187 @@
+Татьяна Александровна:
+1. Практическое задание: Проектирование базы данных для производственного предприятия (ERP-система)
+
+Цель: Спроектировать базу данных (ER-диаграмму) для комплексной автоматизации производственного предприятия, включающей управление закупками сырья, складскими запасами, производственными процессами, отгрузкой готовой продукции, расчётом себестоимости и финансовыми взаиморасчётами.
+
+Исходные данные (Предметная область)
+
+Производственная компания «ТехноПром» выпускает сложную техническую продукцию (например, станки или электронные приборы). Предприятие имеет несколько цехов, складов сырья и готовой продукции, работает с множеством поставщиков и клиентов. Для эффективного управления необходима система, которая объединит все бизнес-процессы: от закупки материалов до отгрузки готовых изделий и анализа рентабельности. Приложение должно иметь следующие модули и права доступа:
+
+1. Модуль авторизации и входа в систему:
+   · При запуске приложения пользователь видит окно входа.
+   · Можно ввести логин и пароль (для сотрудников различных отделов: снабжение, производство, склад, сбыт, финансы, администраторы).
+   · Предусмотрена возможность входа в режиме «Гость» для просмотра публичной информации о компании и продукции (без доступа к внутренним данным).
+2. Модули для авторизованных пользователей:
+   После успешной авторизации права доступа разграничиваются в зависимости от роли:
+   · Роль «Менеджер по закупкам» (снабжение):
+     · Управление справочником поставщиков (контактные данные, договоры, условия).
+     · Создание заказов поставщикам на сырьё и материалы.
+     · Контроль поступления заказов (оприходование на склад).
+     · Отслеживание дефицита сырья (на основе остатков и производственных планов).
+     · Просмотр цен и условий поставщиков.
+   · Роль «Кладовщик» (склад сырья и готовой продукции):
+     · Приёмка сырья от поставщиков (оформление приходных ордеров, печать этикеток с партиями).
+     · Отпуск сырья в производство по требованиям-накладным.
+     · Учёт перемещений между складами.
+     · Приёмка готовой продукции из производства (оформление приёмки).
+     · Отгрузка готовой продукции клиентам (оформление отгрузочных документов).
+     · Проведение инвентаризаций и учёт брака/списаний.
+   · Роль «Технолог» (нормирование):
+     · Управление номенклатурой (сырьё, материалы, полуфабрикаты, готовая продукция).
+     · Ведение спецификаций (рецептур) – состава готовой продукции с указанием норм расхода сырья и времени операций.
+     · Настройка технологических карт (последовательность операций, цеха, оборудование).
+     · Расчёт плановой себестоимости продукции.
+   · Роль «Планировщик производства» (диспетчер):
+     · Формирование производственных заданий (заказов) на основе плана продаж или конкретных заказов клиентов.
+     · Планирование загрузки оборудования и цехов.
+     · Выпуск заданий в цех (наряд-заказы).
+     · Контроль выполнения этапов производства.
+   · Роль «Мастер цеха» (начальник участка):
+     · Получение производственных заданий на свою смену/участок.
+     · Отметка о выпуске продукции (фактическое количество, время, затраты).
+     · Учёт брака и причин.
+     · Заказ сырья со склада (оформление требования).
+   · Роль «Менеджер по продажам» (сбыт):
+     · Управление справочником клиентов (контрагенты, договоры).
+     · Создание заказов клиентов на готовую продукцию.
+     · Отслеживание статусов выполнения заказов.
+     · Формирование отгрузочных документов и счетов.
+     · Взаимодействие со складом и производством для резервирования/запуска продукции.
+   · Роль «Бухгалтер / Финансист»:
+     · Расчёт фактической себестоимости выпущенной продукции.
+     · Учёт взаиморасчётов с поставщиками и клиентами.
+     · Формирование финансовых отчётов (прибыль/убытки по заказам, по продуктам).
+     · Контроль оплат и задолженностей.
+   · Роль «Администратор системы»:
+     · Полное управление пользователями (сотрудники, роли, доступ).
+     · Настройка системных справочников (валюты, единицы измерения, типы документов).
+     · Просмотр логов аудита всех операций.
+
+Задание
+
+На основе описания предметной области необходимо разработать структуру базы данных, которая будет лежать в основе этой системы.
+
+Требования к выполнению:
+
+1. Концептуальное и логическое проектирование:
+   · Проанализируйте описание и выделите все необходимые сущности (таблицы) для хранения данных. Подсказка: понадобятся десятки таблиц: Пользователи, Роли, Сотрудники, Контрагенты (поставщики/клиенты), Договоры, Номенклатура (сырьё, материалы, полуфабрикаты, готовая продукция), Единицы измерения, Склады, Ячейки склада, Партии, Спецификации (состав продукции), Технологические карты, Операции, Цеха, Оборудование, Заказы поставщикам, Приходные накладные, Требования-накладные (перемещения), Производственные заказы, Выпуск продукции, Брак, Заказы клиентов, Отгрузки, Счета, Платежи, Взаиморасчёты, Инвентаризации, Списания, Себестоимость (калькуляции).
+   · Определите атрибуты для каждой сущности.
+   · Установите связи между сущностями (один-ко-многим, многие-ко-многим). Обратите внимание: партионный учёт (сырьё и готовая продукция отслеживаются по партиям срокам годности, серийным номерам); одна спецификация может включать множество позиций сырья; один производственный заказ может выпускать несколько партий продукции; учёт брака на разных этапах; сложные финансовые схемы.
+2. Нормализация:
+   · Спроектируйте базу данных в третьей нормальной форме (3НФ). Убедитесь, что нет дублирования данных и обеспечена ссылочная целостность. Особое внимание уделите историчности данных: цены закупки, продажи, себестоимость меняются, нужно хранить их в документах, а не в справочниках. Также важно разделить аналитический и синтетический учёт.
+3. Согласованность именования:
+   · Используйте понятную и согласованную схему именования для таблиц и полей (например, на английском: Users, Products, ProductionOrders). Это облегчит дальнейшую разработку.
+4. Ключи:
+   · Обязательно определите для каждой таблицы первичный ключ (Primary Key).
+   · Создайте необходимые внешние ключи (Foreign Key) для обеспечения связей.
+5. Результат работы:
+   · Создайте ER-диаграмму с помощью инструмента draw.io (или аналогичного).
+   · Диаграмма должна содержать таблицы, все атрибуты, первичные и внешние ключи. Типами данных на данном этапе можно пренебречь, но можно указать (например, INT, VARCHAR, DECIMAL, DATETIME), если это удобно.
+   · Экспортируйте готовую диаграмму в формат PDF и сохраните как отдельный файл.
+   · Дополнительно (по аналогии с видео): Сохраните скрипт создания базы данных (SQL DDL) для выбранной СУБД (например, PostgreSQL, MySQL) или файл конфигурации для платформы 1С.
+
+Приложение 1: Описание предметной области (детали для БД)
+
+Ниже приведён подробный перечень сущностей с атрибутами. Рекомендуется продумать также таблицы для хранения истории и статусов.
+
+Раздел: Общие справочники
+
+1. User (Пользователь): id, login, password_hash, full_name, email, phone, is_active, created_at.
+2. Role (Роль): id, name, description.
+3. UserRole (Роли пользователей): user_id, role_id.
+4. Employee (Сотрудник): id, user_id (FK, может быть NULL), tab_number, department (цех/отдел), position, hire_date, fire_date (NULL), photo.
+5. Counterparty (Контрагент: поставщик или клиент): id, full_name, short_name, INN, KPP, OGRN, legal_address, actual_address, phone, email, type ('supplier', 'customer', 'both').
+6. Contract (Договор с контрагентом): id, counterparty_id (FK), number, date, start_date, end_date, description, file_link.
+7. UnitOfMeasure (Единицы измерения): id, code (ОКЕИ), name, short_name.
+8. Warehouse (Склад): id, name, address, responsible_employee_id (FK Employee), type ('material', 'finished_goods', 'defect').
+9. StorageCell (Ячейка склада): id, warehouse_id (FK), code (номер стеллажа/ячейки), description.
+10. ProductCategory (Категория номенклатуры): id, parent_id (для иерархии), name.
+11. Product (Номенклатура): id, category_id (FK), type ('raw_material', 'semi_finished', 'finished'), code (артикул), name, description, base_unit_id (FK UnitOfMeasure), purchase_price (текущая закупочная), sale_price (текущая продажная), weight, volume, is_active, photo.
+12.
+
+Batch (Партия): id, product_id (FK), batch_number, supplier_id (FK Counterparty – для сырья), production_date (для продукции), expiration_date, quantity (текущий остаток), warehouse_id (FK), cell_id (FK StorageCell), status ('in_stock', 'reserved', 'written_off'), cost_price (себестоимость единицы в партии – для сырья закупочная, для продукции рассчитанная).
+
+Раздел: Закупки и склад
+
+1. PurchaseOrder (Заказ поставщику): id, supplier_id (FK Counterparty), contract_id (FK), order_date, required_date, status ('draft', 'sent', 'confirmed', 'partially_received', 'closed'), total_amount, notes.
+2. PurchaseOrderItem (Строка заказа поставщику): id, purchase_order_id (FK), product_id (FK), quantity, price, amount.
+3. GoodsReceipt (Приходная накладная): id, supplier_id (FK), purchase_order_id (FK, может быть NULL), receipt_date, warehouse_id (FK), document_number, status ('new', 'completed').
+4. GoodsReceiptItem (Строка прихода): id, goods_receipt_id (FK), product_id (FK), quantity, price (цена по документу), amount, batch_id (FK, создаётся новая партия или выбирается существующая).
+5. InternalTransfer (Перемещение между складами): id, from_warehouse_id (FK), to_warehouse_id (FK), transfer_date, status ('draft', 'completed'), created_by (FK User).
+6. InternalTransferItem (Строка перемещения): id, transfer_id (FK), batch_id (FK), quantity.
+
+Раздел: Производство
+
+1. Workshop (Цех/участок): id, name, manager_id (FK Employee), description.
+2. Equipment (Оборудование): id, name, workshop_id (FK), model, serial_number, status ('operational', 'repair', 'idle').
+3. BillOfMaterials (BOM) – Спецификация (рецептура): id, product_id (FK – готовое изделие), version, name, valid_from, valid_to (NULL), quantity (выход продукта по спецификации, обычно 1), unit_id (FK).
+4. BOMItem (Строка спецификации): id, bom_id (FK), raw_material_id (FK Product), quantity (норма расхода), unit_id (FK UnitOfMeasure), waste_percent (процент отходов).
+5. Routing (Технологическая карта): id, product_id (FK), version, name, valid_from, valid_to.
+6. RoutingOperation (Операция технологической карты): id, routing_id (FK), operation_number, workshop_id (FK), equipment_id (FK, может быть NULL), description, setup_time_min, run_time_per_unit_min, labor_cost (трудоёмкость).
+7. ProductionOrder (Производственный заказ): id, product_id (FK), quantity (план), bom_id (FK), routing_id (FK), start_date_planned, end_date_planned, status ('new', 'released', 'in_progress', 'completed', 'cancelled'), customer_order_id (FK – может быть связан с заказом клиента), manager_id (FK Employee).
+8. ProductionOrderMaterialRequirement (Потребность в материалах по заказу): id, production_order_id (FK), product_id (FK), required_quantity, reserved_quantity (из партий), status ('pending', 'reserved', 'issued').
+9. MaterialIssue (Требование-накладная на выдачу сырья в производство): id, production_order_id (FK), issue_date, warehouse_id (FK), status ('draft', 'completed').
+10. MaterialIssueItem (Строка выдачи): id, material_issue_id (FK), batch_id (FK), quantity, price (себестоимость на момент выдачи).
+11. ProductionOutput (Выпуск продукции): id, production_order_id (FK), output_date, workshop_id (FK), quantity (факт), batch_id (FK – создаётся новая партия готовой продукции), status ('registered').
+12. Defect (Брак): id, production_order_id (FK), product_id (FK), workshop_id (FK), defect_date, quantity, reason (код причины), description, batch_id (FK, если брак относится к партии), disposal_method ('rework', 'scrap').
+
+Раздел: Продажи
+
+1. CustomerOrder (Заказ клиента): id, customer_id (FK Counterparty), contract_id (FK), order_date, required_date, status ('new', 'confirmed', 'in_production', 'ready', 'shipped', 'cancelled'), total_amount, notes.
+2. CustomerOrderItem (Строка заказа клиента): id, customer_order_id (FK), product_id (FK), quantity, price, amount, reserved_quantity (из партий готовой продукции).
+3. Shipment (Отгрузка клиенту): id, customer_order_id (FK), shipment_date, warehouse_id (FK), status ('draft', 'completed'), document_number.
+4.
+
+ShipmentItem (Строка отгрузки): id, shipment_id (FK), batch_id (FK), quantity, price (продажная цена), amount.
+
+Раздел: Финансы и себестоимость
+
+1. Invoice (Счёт на оплату): id, counterparty_id (FK), type ('incoming' от поставщика, 'outgoing' клиенту), number, date, due_date, total_amount, status ('unpaid', 'partial', 'paid'), linked_document_type (PurchaseOrder, CustomerOrder, etc.), linked_document_id.
+2. Payment (Платеж): id, invoice_id (FK), payment_date, amount, payment_method, reference.
+3. CostCalculation (Калькуляция себестоимости): id, batch_id (FK – партия готовой продукции), calculation_date, total_material_cost (сумма затрат на материалы), total_labor_cost, total_overhead, total_cost (себестоимость партии), unit_cost (себестоимость единицы).
+4. CostCalculationItem (Детализация калькуляции): id, cost_calculation_id (FK), type ('material', 'labor', 'overhead'), reference_id (например, batch_id материала), amount.
+
+Раздел: Инвентаризация и прочее
+
+1. Inventory (Инвентаризация): id, warehouse_id (FK), start_date, end_date, status ('planned', 'in_progress', 'completed').
+2. InventoryItem (Строка инвентаризации): id, inventory_id (FK), batch_id (FK), actual_quantity, book_quantity, difference, reason (если расхождение).
+3. WriteOff (Списание): id, warehouse_id (FK), write_off_date, reason ('expired', 'damaged', 'loss'), status.
+4. WriteOffItem (Строка списания): id, write_off_id (FK), batch_id (FK), quantity, price (себестоимость), amount.
+5. AuditLog (Лог действий): id, user_id (FK), action, table_name, record_id, old_data, new_data, timestamp, ip_address.
+
+Приложение 2: Данные для импорта
+
+Заказчик предоставил несколько CSV-файлов с тестовыми данными, которые необходимо будет загрузить в разработанную базу данных (структура БД должна позволять это сделать). Список файлов (примерный):
+
+1. users.csv – пользователи
+2. roles.csv – роли
+3. employees.csv – сотрудники
+4. counterparties.csv – контрагенты (поставщики и клиенты)
+5. contracts.csv – договоры
+6. units.csv – единицы измерения
+7. warehouses.csv – склады
+8. product_categories.csv – категории номенклатуры
+9. products.csv – номенклатура (сырьё, готовая продукция)
+10. boms.csv – спецификации (заголовки)
+11. bom_items.csv – строки спецификаций
+12. workshops.csv – цеха
+13. equipment.csv – оборудование
+14. purchase_orders.csv – заказы поставщикам
+15. purchase_order_items.csv – строки заказов поставщикам
+16. goods_receipts.csv – приходные накладные
+17. goods_receipt_items.csv – строки приходов (создаются партии)
+18. customer_orders.csv – заказы клиентов
+19. customer_order_items.csv – строки заказов клиентов
+20. production_orders.csv – производственные заказы
+21. production_order_material_requirements.csv – потребности в материалах
+22. material_issues.csv – требования-накладные на выдачу
+23. material_issue_items.csv – строки выдачи (списание партий)
+24. production_outputs.csv – выпуск продукции (создание партий готовой продукции)
+25. defects.csv – брак
+26. shipments.csv – отгрузки
+27. shipment_items.csv – строки отгрузки (списание партий готовой продукции)
+28. invoices.csv – счета
+29. payments.csv – платежи
+30. cost_calculations.csv – калькуляции себестоимости
+31. inventories.csv – инвентаризации
+32. write_offs.csv – списания
